@@ -47,7 +47,7 @@ public class TestController {
     }
 
     @RequestMapping("/article/modify/{id}")
-    @ResponseBody
+    @ResponseBody // 리턴값을 html 코드로 전달
     public String modify(@PathVariable("id") int id, String title, String body) {
 
         // 빌더 방식 - 실수 확률이 적다
@@ -59,7 +59,7 @@ public class TestController {
 
         articleDao.modify(article);
 
-        return "게시글이 수정되었습니다";
+        return "게시글이 수정되었습니다";  // 브라우저 출력 => html 문자열로 출력
     }
 
     @RequestMapping("article/write2")
@@ -75,5 +75,15 @@ public class TestController {
         articleDao.write2(article);
 
         return "게시글이 작성되었습니다!";
+    }
+
+    @RequestMapping("/show-html")
+    public String showHtml() {
+        return "/test"; // .html 확장자를 스프링부트가 자동으로 붙여줌
+    }
+
+    @RequestMapping("/show-write")
+    public String showWrite() {
+        return "write";
     }
 }
