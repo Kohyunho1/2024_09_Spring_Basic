@@ -19,7 +19,4 @@ public interface ArticleDao {
     void delete(int id);
 
     void modify(Article article);
-
-    void write2(Article article);
-
 }

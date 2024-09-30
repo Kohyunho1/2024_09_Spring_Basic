@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<!-- sequence for -->
+    <div th:each="num : ${#numbers.sequence(1, 4)}" th:text="${num}"></div>
+
+    <hr>
+
+    <div th:each="dan : ${numbers.sequence(2, 9)}">
+        <div th:each="num : ${#numbers.sequence(1, 9)}" th:text="${dan} + ' x ' + ${num} + ' = ' + ${dan * num}"></div>
+    </div>
+</body>
+</html>

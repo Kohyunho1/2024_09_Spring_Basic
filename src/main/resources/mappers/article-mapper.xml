@@ -10,7 +10,7 @@
                 , `body` = #{body}
     </insert>
 
-    <select id="list" resultType="com.example.basic.Article"> <!-- 리턴이 존재하면 resultType="풀패키지" -->
+    <select id="list" resultType="com.example.basic.Article"> <!-- 리턴이 존재하면 resultType="풀패키지명" -->
         SELECT * FROM article2
     </select>
 
@@ -30,10 +30,4 @@
                 , `body` = #{body}
             WHERE id = #{id}
     </update>
-
-    <insert id="write2" parameterType="com.example.basic.Article">
-        INSERT INTO article2
-            SET title = #{title}
-                , `body` = #{body}
-    </insert>
 </mapper>
