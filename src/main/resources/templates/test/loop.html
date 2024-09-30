@@ -13,8 +13,9 @@
 
     <hr>
 
-    <div th:each="dan : ${numbers.sequence(2, 9)}">
-        <div th:each="num : ${#numbers.sequence(1, 9)}" th:text="${dan} + ' x ' + ${num} + ' = ' + ${dan * num}"></div>
+    <div th:each="dan : ${#numbers.sequence(2, 9)}">
+        <h3 th:text="${dan} + '단'"></h3>
+            <div th:each="num : ${#numbers.sequence(1, 9)}" th:text="${dan} + ' x ' + ${num} + ' = ' + ${dan * num}"></div>
     </div>
 </body>
 </html>
