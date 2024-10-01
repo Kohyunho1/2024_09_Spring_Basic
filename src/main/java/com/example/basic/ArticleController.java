@@ -2,6 +2,7 @@ package com.example.basic;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,31 +16,35 @@ public class ArticleController {
 //    주소창에 입력한 url은 기본적으로 GET 방식
     @GetMapping("/article/write")
     public String articlewrite() {
-        return "article/article-write";
+        return "article/write";
     }
 
     @PostMapping("/article/write")
-    @ResponseBody
+    @ResponseBody // 리턴값을 html 코드로 전달
     public String write(String title, String body) {
         articleDao.write(title, body);
 
-        return "게시물이 저장되었습니다.";
+        return "게시물이 저장되었습니다."; // 브라우저 출력 => html 문자열로 출력
     }
 
-    @RequestMapping("/article/list")
-    @ResponseBody
-    public List<Article> list() {
+    @GetMapping("/article/list")
+    public String articlelist(Model model) {
+
         List<Article> articleList = articleDao.list();
 
-        return articleList;
+        model.addAttribute("articleList", articleList);
+
+        return "article/list";
     }
 
     @RequestMapping("/article/detail/{id}") // id는 결정될 수 없는 값이기 때문에 변수화한다.
-    @ResponseBody
-    public Article detail(@PathVariable("id") int id) { //@PathVarible("변수명") -> url에 포함된 정보를 메서드에서 사용 가능
-        Article article = articleDao.detail(id);
+    public String detail(@PathVariable("id") int id, Model model) { //@PathVarible("변수명") -> url에 포함된 정보를 메서드에서 사용 가능
 
-        return article;
+        Article articleDetail = articleDao.detail(id);
+
+        model.addAttribute("articleDetail", articleDetail);
+
+        return "article/detail";
     }
 
     @RequestMapping("/article/delete/{id}")
@@ -50,9 +55,14 @@ public class ArticleController {
         return "게시글이 삭제되었습니다";
     }
 
-    @RequestMapping("/article/modify/{id}")
-    @ResponseBody // 리턴값을 html 코드로 전달
-    public String modify(@PathVariable("id") int id, String title, String body) {
+    @GetMapping("/article/modify")
+    public String articleModify() {
+        return "article/modify";
+    }
+
+    @PostMapping("/article/modify/{id}")
+    @ResponseBody
+    public String modify(@PathVariable("id") int id, String title, String body, Model model) {
 
         // 빌더 방식 - 실수 확률이 적다
         // 코드 정리 단축키 -> 컨트롤 + 알트 + L
@@ -64,7 +74,7 @@ public class ArticleController {
 
         articleDao.modify(article);
 
-        return "게시글이 수정되었습니다";  // 브라우저 출력 => html 문자열로 출력
+        return "게시글이 수정되었습니다.";
     }
 
     @GetMapping("/fruits")

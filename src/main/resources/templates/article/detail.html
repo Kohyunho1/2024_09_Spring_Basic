@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>상세보기</title>
+</head>
+<body>
+    <div th:text="'ID : ' + ${articleDetail.id}"></div>
+    <div th:text="'제목 : ' + ${articleDetail.title}"></div>
+    <input type="text" th:value="${articleDetail.title}">
+    <div th:text="'내용 : ' + ${articleDetail.body}"></div>
+    <a href="/article/list">목록</a>
+    <a href="/article/modify">수정</a>
+
+</body>
+</html>
