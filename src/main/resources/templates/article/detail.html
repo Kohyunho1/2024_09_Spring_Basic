@@ -19,14 +19,17 @@
     </div>
     <input type="submit" value="수정">
 </form>
-<form th:action="@{|/article/delete/${article.id}|}" method="post">
-    <input type="submit" value="삭제">
+<form th:action="@{|/article/delete/${article.id}|}" method="post" onsubmit="checkDelete();">
+    <input id="deleteInput" type="submit" name="delete" value="삭제">
 </form>
+
 <ul>
     <li><a th:href="@{|/article/list|}">목록</a></li>
 </ul>
 </body>
 <script>
-    function
+    function checkDelete() {
+        alert('정말 삭제하시겠습니까?');
+    }
 </script>
 </html>

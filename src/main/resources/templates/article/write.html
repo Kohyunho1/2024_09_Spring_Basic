@@ -8,9 +8,6 @@
     <title>Write</title>
 </head>
 <body>
-<ul>
-    <li><a th:href="@{|/article/list|}">목록</a></li>
-</ul>
 
 <!-- form은 기본적으로 GET 타입 -->
 <form id="write-form" action="/article/write" method="post" onsubmit="checkSubmit(); return false;">
@@ -19,6 +16,9 @@
     <input type="submit" value="등록">
 </form>
 
+<ul>
+    <li><a th:href="@{|/article/list|}">목록</a></li>
+</ul>
 <script>
     function checkSubmit() {
 
