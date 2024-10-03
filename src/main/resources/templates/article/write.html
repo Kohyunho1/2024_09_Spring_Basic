@@ -9,12 +9,34 @@
 </head>
 <body>
 <!-- form은 기본적으로 GET 타입 -->
-<form action="/article/write" method="post">
-    <input type="text" name="title" placeholder="제목을 입력해주세요">
-    <input type="text" name="body" placeholder="내용을 입력해주세요">
+<form id="write-form" action="/article/write" method="post" onsubmit="checkSubmit(); return false;">
+    <input id="input-title" type="text" name="title" placeholder="제목을 입력해주세요">
+    <input id="input-body" type="text" name="body" placeholder="내용을 입력해주세요">
     <input type="submit" value="등록">
 </form>
+<ul>
+    <li><a th:href="@{|/article/list|}">목록</a></li>
+</ul>
+<script>
+    function checkSubmit() {
 
+        const form = document.getElementById('write-form);
+        const titleInput = document.getElementById('input-title');
+        const bodyInput = document.getElementById('input-body');
 
+        if(titleInput.value.trim().length == 0) {
+            alert('제목을 입력해주세요.');
+            titleInput.focus();
+            return;
+        }
+
+        if(bodyInput.value.trim().length == 0) {
+            alert('제목을 입력해주세요.');
+            bodyInput.focus();
+            return;
+        }
+        form.submit();
+    }
+</script>
 </body>
 </html>

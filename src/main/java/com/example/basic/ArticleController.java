@@ -11,74 +11,74 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArticleController {
 
-    private final ArticleDao articleDao;
+  private final ArticleDao articleDao;
 
-//    주소창에 입력한 url은 기본적으로 GET 방식
-    @GetMapping("/article/write")
-    public String articlewrite() {
-        return "article/write";
-    }
+  //    주소창에 입력한 url은 기본적으로 GET 방식
+  @GetMapping("/article/write")
+  public String articlewrite() {
+    return "article/write";
+  }
 
-    @PostMapping("/article/write")
-    @ResponseBody // 리턴값을 html 코드로 전달
-    public String write(String title, String body) {
-        articleDao.write(title, body);
+  @PostMapping("/article/write")
+  public String write(String title, String body, Model model) {
 
-        return "게시물이 저장되었습니다."; // 브라우저 출력 => html 문자열로 출력
-    }
+    // 코드 정리 단축키 -> 컨트롤 + 알트 + L
+    Article article = Article.builder()
+        .title(title)
+        .body(body)
+        .build();
 
-    @GetMapping("/article/list")
-    public String articlelist(Model model) {
+    articleDao.write(article);
+    return "redirect:/article/list"; // redirect 뒤에 적는 것은 url을 적는 것. 템플릿 이름 아님. 주소창을 해당 url로 바꾸라는 의미
+  }
 
-        List<Article> articleList = articleDao.list();
+  @GetMapping("/article/list")
+  public String articlelist(Model model) {
 
-        model.addAttribute("articleList", articleList);
+    List<Article> articleList = articleDao.list();
 
-        return "article/list";
-    }
+    model.addAttribute("articleList", articleList);
 
-    @RequestMapping("/article/detail/{id}") // id는 결정될 수 없는 값이기 때문에 변수화한다.
-    public String detail(@PathVariable("id") int id, Model model) { //@PathVarible("변수명") -> url에 포함된 정보를 메서드에서 사용 가능
+    return "article/list";
+  }
 
-        Article articleDetail = articleDao.detail(id);
+  @RequestMapping("/article/detail/{id}") // id는 결정될 수 없는 값이기 때문에 변수화한다.
+  public String detail(@PathVariable("id") int id, Model model) { //@PathVarible("변수명") -> url에 포함된 정보를 메서드에서 사용 가능
 
-        model.addAttribute("articleDetail", articleDetail);
+    Article article = articleDao.detail(id);
 
-        return "article/detail";
-    }
+    model.addAttribute("article", article);
 
-    @RequestMapping("/article/delete/{id}")
-    @ResponseBody
-    public String delete(@PathVariable("id") int id) {
-        articleDao.delete(id);
+    return "article/detail";
+  }
 
-        return "게시글이 삭제되었습니다";
-    }
+  @RequestMapping("/article/delete/{id}")
+  public String delete(@PathVariable("id") int id) {
 
-    @GetMapping("/article/modify")
-    public String articleModify() {
-        return "article/modify";
-    }
+    articleDao.delete(id);
 
-    @PostMapping("/article/modify/{id}")
-    @ResponseBody
-    public String modify(@PathVariable("id") int id, String title, String body, Model model) {
+    return "redirect:/article/list";
+  }
 
-        // 빌더 방식 - 실수 확률이 적다
-        // 코드 정리 단축키 -> 컨트롤 + 알트 + L
-        Article article = Article.builder()
-                .id(id)
-                .title(title)
-                .body(body)
-                .build();
+  @PostMapping("/article/modify/{id}")
+  public String modify(@PathVariable("id") int id, String title, String body, Model model) {
 
-        articleDao.modify(article);
+    // 빌더 방식 - 실수 확률이 적다
+    Article article = Article.builder()
+        .id(id)
+        .title(title)
+        .body(body)
+        .build();
 
-        return "게시글이 수정되었습니다.";
-    }
+    articleDao.modify(article);
 
-    @GetMapping("/fruits")
-    public String showFruits() {
-        return "fruits"; // .html 확장자를 스프링부트가 자동으로 붙여줌
-    }
+    model.addAttribute("article", article);
+
+    return "redirect:/article/list";
+  }
+
+  @GetMapping("/fruits")
+  public String showFruits() {
+    return "fruits"; // .html 확장자를 스프링부트가 자동으로 붙여줌
+  }
 }
