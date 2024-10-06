@@ -2,10 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>상세보기</title>
+    <title>datail</title>
 </head>
 <body>
-<form th:action="@{|/article/modify/${article.id}|}" method="post">
+<ul>
+    <li><a href="/article/write">글쓰기</a></li>
+    <li><a href="/article/list">글목록</a></li>
+</ul>
+<hr>
+<form th:action="@{|/article/modify/${article.id}|}" method="post" onsubmit="checkSubmit(this); return false;">
     <div>
         <label for="title">제목</label>
         <input type="text" name="title" th:value="${article.title}">
@@ -17,19 +22,28 @@
         <input type="text" name="body" th:value="${article.body}">
         <!--    <div th:text="${article.body}"></div>-->
     </div>
-    <input type="submit" value="수정">
+    <input type="submit" value="수정" />
 </form>
-<form th:action="@{|/article/delete/${article.id}|}" method="post" onsubmit="checkDelete();">
-    <input id="deleteInput" type="submit" name="delete" value="삭제">
+<form th:action="@{|/article/delete/${article.id}|}" method="post">
+    <input type="submit" value="삭제" />
 </form>
-
-<ul>
-    <li><a th:href="@{|/article/list|}">목록</a></li>
-</ul>
-</body>
 <script>
-    function checkDelete() {
-        alert('정말 삭제하시겠습니까?');
+    function checkSubmit(form) {
+        console.log('test');
+        if(form.title.value.trim().length == 0) {
+            alert('제목을 입력해주세요.');
+            titleInput.focus();
+            return;
+        }
+
+        if(form.body.value.trim().length == 0) {
+            alert('내용을 입력해주세요.');
+            bodyInput.focus();
+            return;
+        }
+
+        form.submit();
     }
 </script>
+</body>
 </html>

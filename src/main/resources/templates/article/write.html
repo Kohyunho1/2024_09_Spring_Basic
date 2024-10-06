@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="kor">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,21 +8,21 @@
     <title>Write</title>
 </head>
 <body>
+<ul>
+    <li><a href="/article/write">글쓰기</a></li>
+    <li><a href="/article/list">글목록</a></li>
+</ul>
+<hr>
 
-<!-- form은 기본적으로 GET 타입 -->
-<form id="write-form" action="/article/write" method="post" onsubmit="checkSubmit(); return false;">
+<form id="write-form" action="/article/write" method="POST" onsubmit="checkSubmit(); return false;">
     <input id="input-title" type="text" name="title" placeholder="제목을 입력해주세요">
     <input id="input-body" type="text" name="body" placeholder="내용을 입력해주세요">
     <input type="submit" value="등록">
 </form>
-
-<ul>
-    <li><a th:href="@{|/article/list|}">목록</a></li>
-</ul>
 <script>
     function checkSubmit() {
-
         const form = document.getElementById('write-form');
+
         const titleInput = document.getElementById('input-title');
         const bodyInput = document.getElementById('input-body');
 
@@ -37,6 +37,7 @@
             bodyInput.focus();
             return;
         }
+
         form.submit();
     }
 </script>

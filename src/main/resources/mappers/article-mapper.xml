@@ -2,32 +2,29 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.basic.ArticleDao">
-
-    <insert id="write" parameterType="map"> <!-- 매개변수가 2개 이상이다. map -->
+<mapper namespace="com.example.basic.article.dao.ArticleDao">
+    <insert id="save" parameterType="com.example.basic.article.entity.Article"> <!-- 매개변수가 2개 이상이다. map-->
         INSERT INTO article2
-            SET title = #{title}
-                , `body` = #{body}
+        SET  title = #{title}
+        , `body` = #{body}
     </insert>
 
-    <select id="list" resultType="com.example.basic.Article"> <!-- 리턴이 존재하면 resultType="풀패키지명" -->
+    <select id="findById" parameterType="long" resultType="com.example.basic.article.entity.Article"> <!-- 매개변수가 1개이다. 해당 매개변수 타입 지정-->
+        select * from article2 where id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.example.basic.article.entity.Article">
         SELECT * FROM article2
     </select>
 
-    <select id="detail" parameterType="int" resultType="com.example.basic.Article"> <!-- 매개변수가 1개이다. 해당 매개변수 타입 지정 -->
-        SELECT * FROM article2
-        WHERE id = #{id}
-    </select>
-
-    <delete id="delete" parameterType="int">
-        DELETE FROM article2
-        WHERE id = #{id}
+    <delete id="deleteById" parameterType="long">
+        DELETE FROM article2 WHERE id = #{id}
     </delete>
 
-    <update id="modify" parameterType="com.example.basic.Article">
+    <update id="update" parameterType="com.example.basic.article.entity.Article">
         UPDATE article2
-            SET title = #{title}
-                , `body` = #{body}
-            WHERE id = #{id}
+        SET title = #{title},
+        `body` = #{body}
+        WHERE id = #{id}
     </update>
 </mapper>

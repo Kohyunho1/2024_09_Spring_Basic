@@ -1,5 +1,7 @@
 package com.example.basic;
 
+import com.example.basic.article.dao.ArticleDao;
+import com.example.basic.article.entity.Article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +43,7 @@ public class TestController {
     fruits.add("orange");
     fruits.add("apple");
 
-    Article article = articleDao.detail(4);
+    Article article = articleDao.findById(1L);
 
     model.addAttribute("myNumber", myNumber);
     model.addAttribute("myString", myString);

@@ -7,11 +7,8 @@ spring:
     username: root
     password:
 
-server:
-  port: 8080
-  servlet:
-    context-path: /
-
 mybatis:
   mapper-locations: mappers/*.xml
+
+
 

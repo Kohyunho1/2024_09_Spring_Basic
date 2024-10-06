@@ -1,34 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>목록</title>
+    <title>list</title>
 </head>
 <body>
-<table>
-    <thead>
-    <tr>
-        <th>제목</th>
-        <th>내용</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="Article : ${articleList}">
-        <td>
-            <a th:href="@{|/article/detail/${Article.id}|}" th:text="${Article.id} + '. ' + ${Article.title}"></a>
-        </td>
-        <td th:text="${Article.body}"></td>
-    </tr>
-    </tbody>
-</table>
-
-<hr>
-
 <ul>
     <li><a href="/article/write">글쓰기</a></li>
+    <li><a href="/article/list">글목록</a></li>
+</ul>
+<hr>
+<ul>
+    <li th:each="article : ${articleList}">
+        <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.id} + ', ' + ${article.title}"></a>
+    </li>
 </ul>
 </body>
 </html>
