@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>list</title>
-</head>
-<body>
-<ul>
-    <li><a href="/article/write">글쓰기</a></li>
-    <li><a href="/article/list">글목록</a></li>
-</ul>
-<hr>
-<ul>
-    <li th:each="article : ${articleList}">
-        <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.id} + ', ' + ${article.title}"></a>
-    </li>
-</ul>
+<html layout:decorate="~{article/layout}">
+<div layout:fragment="content">
+    <ul>
+        <li th:each="article : ${articleList}">
+            <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.id} + ', ' + ${article.title}"></a>
+        </li>
+    </ul>
+</div>
 </body>
 </html>
