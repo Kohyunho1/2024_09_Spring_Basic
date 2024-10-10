@@ -12,6 +12,13 @@
             <input type="text" name="body" th:value="${article.body}">
             <!--    <div th:text="${article.body}"></div>-->
         </div>
+        <hr>
+        <div>
+            <label for="body">댓글</label>
+            <input type="text" placeholder="댓글을 입력하세요.">
+            <!--    <div th:text="${article.body}"></div>-->
+        </div>
+        <hr>
         <input type="submit" value="수정"/>
     </form>
     <form th:action="@{|/article/delete/${article.id}|}" method="post">

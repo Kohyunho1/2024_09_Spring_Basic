@@ -1,0 +1,24 @@
+<html layout:decorate="~{article/layout}">
+<div layout:fragment="content" class="text-center">
+    <form action="/login" method="post" class="flex flex-col gap-5 items-center mt-[50px]">
+        <div>
+            <input
+                    type="text"
+                    name="username"
+                    placeholder="아이디"
+                    class="input input-bordered input-primary w-full max-w-xs"/>
+        </div>
+        <div>
+            <input
+                    type="text"
+                    name="password"
+                    placeholder="비밀번호"
+                    class="input input-bordered input-primary w-full max-w-xs"/>
+        </div>
+        <div>
+            <button class="btn btn-outline btn-primary">로그인</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
