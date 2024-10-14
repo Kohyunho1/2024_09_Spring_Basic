@@ -1,4 +1,4 @@
-<html layout:decorate="~{article/layout}">
+<html layout:decorate="~{global/layout}">
 <div layout:fragment="content">
     <form th:action="@{|/article/modify/${article.id}|}" method="post" onsubmit="checkSubmit(this); return false;">
         <div>

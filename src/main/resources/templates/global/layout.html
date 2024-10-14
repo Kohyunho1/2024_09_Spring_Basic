@@ -30,9 +30,10 @@
                     class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                 <li><a href="/article/write">글쓰기</a></li>
                 <li><a href="/article/list">글목록</a></li>
-                <li th:if="${loginedUser}"><a href="/logout">로그아웃</a></li>
-                <li th:unless="${loginedUser}"><a href="/login">로그인</a></li>
+                <li th:if="${loginUser}"><a href="/logout">로그아웃</a></li>
+                <li th:unless="${loginUser}"><a href="/login">로그인</a></li>
                 <li><a href="/article/list">회원가입</a></li>
+                <li th:if="${loginUser != null and role != null and role.equals('admin')}"><a href="/admin/main">관리자</a></li>
             </ul>
         </div>
     </div>
@@ -40,8 +41,8 @@
         <a class="btn btn-ghost text-xl">daisyUI</a>
     </div>
     <div class="navbar-end">
-        <div th:if="${loginedUser}">
-            <span th:text="${loginedUser}"></span>님! 반갑습니다
+        <div th:if="${loginUser}">
+            <span th:text="${loginUser}"></span>님! 반갑습니다
         </div>
         <button class="btn btn-ghost btn-circle">
             <svg
