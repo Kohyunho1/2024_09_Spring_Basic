@@ -1,7 +1,8 @@
-package com.example.basic.article.controller;
+package com.example.basic.domain.article.controller;
 
-import com.example.basic.article.entity.Article;
-import com.example.basic.article.service.ArticleService;
+import com.example.basic.domain.article.entity.Article;
+import com.example.basic.domain.article.service.ArticleService;
+import com.example.basic.global.ReqResHandler;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -23,9 +24,17 @@ import java.util.List;
 public class ArticleController {
 
   private final ArticleService articleService;
+  private final ReqResHandler reqResHandler;
 
   @RequestMapping("/article/detail/{id}")
-  public String detail(@PathVariable("id") long id, Model model) {
+  public String detail(@PathVariable("id") long id, Model model, HttpServletRequest request) {
+
+    Cookie targetCookie = reqResHandler.getLoginCookie(request);
+
+    if (targetCookie != null) {
+      model.addAttribute("loginedUser", targetCookie.getValue());
+    }
+
     Article article = articleService.getById(id); // 데이터 처리(비지니스 로직)
     model.addAttribute("article", article); // 웹 관련 처리
 
@@ -36,36 +45,32 @@ public class ArticleController {
   public String list(Model model, HttpServletRequest request) {
     List<Article> articleList = articleService.getAll();
 
+    Cookie targetCookie = reqResHandler.getLoginCookie(request);
+
     // 단골이냐 아니냐(쿠폰 여부)
-
-    Cookie[] cookies = request.getCookies();
-
-    Cookie targetCookie = null;
-
-    if (cookies != null) {
-      for (Cookie cookie : cookies) {
-        if (cookie.getName().equals("loginUser")) {
-          targetCookie = cookie;
-        }
-      }
-    }
-
-    if(targetCookie == null) {
-      // loginUser 쿠폰 없으면 일반. (쿠폰이 없습니다 출력)
+    if (targetCookie == null) {
+      // loginUser 쿠폰 있으면 단골. (loginUser 쿠폰값 출력)
       System.out.println("쿠키가 없습니다.");
     } else {
-      // loginUser 쿠폰 있으면 단골. (loginUser 쿠폰값 출력)
+      // loginUser 쿠폰 없으면 일반. (쿠폰이 없습니다 출력)
       System.out.println("loginedMember : " + targetCookie.getValue());
       model.addAttribute("loginedUser", targetCookie.getValue());
     }
 
     model.addAttribute("articleList", articleList);
+
     return "article/list";
   }
 
   @GetMapping("/article/write")
-  public String articleWrite() {
+  public String articleWrite(Model model, HttpServletRequest request) {
 
+    Cookie targetCookie = reqResHandler.getLoginCookie(request);
+
+    // 단골이냐 아니냐(쿠폰여부)
+    if (targetCookie != null) {
+      model.addAttribute("loginedUser", targetCookie.getValue());
+    }
     return "article/write";
   }
 
@@ -80,35 +85,36 @@ public class ArticleController {
 
   @PostMapping("/article/write")
   public String write(@Valid WriteForm writeForm, Model model) {
-    articleService.write(writeForm.getTitle(), writeForm.getBody());
 
+    articleService.write(writeForm.getTitle(), writeForm.getBody());
     return "redirect:/article/list"; // redirect 뒤에 적는 것은 url을 적는 것. 템플릿 이름 아님. 주소창을 해당 url로 바꾸라는 의미
   }
 
   @RequestMapping("/article/delete/{id}")
   public String delete(@PathVariable long id) {
-    articleService.deleteById(id);
 
+    articleService.deleteById(id);
     return "redirect:/article/list";
   }
 
   @Getter
   @Setter
   public static class ModifyForm {
-    @NotBlank String title;
-    @NotBlank  String body;
+    @NotBlank
+    String title;
+    @NotBlank
+    String body;
   }
 
   @RequestMapping("/article/modify/{id}")
-  public String modify(@PathVariable("id") long id, @Valid ModifyForm modifyForm){
-    articleService.update(id, modifyForm.getTitle(), modifyForm.getBody());
+  public String modify(@PathVariable("id") long id, @Valid ModifyForm modifyForm) {
 
+    articleService.update(id, modifyForm.getTitle(), modifyForm.getBody());
     return "redirect:/article/detail/%d".formatted(id); // 브라우저 출력 => html 문자열로 출력
   }
 
   @RequestMapping("/show-html")
   public String showHtml() {
-
     return "test"; // .html 확장자를 스프링부트가 자동으로 붙여줌
   }
 }

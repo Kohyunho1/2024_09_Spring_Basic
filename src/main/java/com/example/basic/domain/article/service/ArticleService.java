@@ -1,7 +1,7 @@
-package com.example.basic.article.service;
+package com.example.basic.domain.article.service;
 
-import com.example.basic.article.entity.Article;
-import com.example.basic.article.dao.ArticleDao;
+import com.example.basic.domain.article.entity.Article;
+import com.example.basic.domain.article.dao.ArticleDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

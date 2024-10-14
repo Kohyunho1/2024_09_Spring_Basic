@@ -1,6 +1,6 @@
-package com.example.basic.article.dao;
+package com.example.basic.domain.article.dao;
 
-import com.example.basic.article.entity.Article;
+import com.example.basic.domain.article.entity.Article;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

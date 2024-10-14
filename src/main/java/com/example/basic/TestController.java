@@ -1,7 +1,7 @@
 package com.example.basic;
 
-import com.example.basic.article.dao.ArticleDao;
-import com.example.basic.article.entity.Article;
+import com.example.basic.domain.article.dao.ArticleDao;
+import com.example.basic.domain.article.entity.Article;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
