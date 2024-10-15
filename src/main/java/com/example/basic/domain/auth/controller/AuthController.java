@@ -2,7 +2,6 @@ package com.example.basic.domain.auth.controller;
 
 import com.example.basic.domain.auth.entity.Member;
 import com.example.basic.global.ReqResHandler;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -23,17 +22,11 @@ import java.util.List;
 public class AuthController {
 
   private final ReqResHandler reqResHandler;
-  private List<Member> meberList;
 
   @GetMapping("/logout")
-  public String logout(HttpServletRequest request, HttpServletResponse response) { // 매개변수 - request, response
+  public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) { // 매개변수 - request, response
 
-    Cookie targetCookie = reqResHandler.getCookieByName(request, "loginUser");
-
-    if (targetCookie != null) {
-      targetCookie.setMaxAge(0);
-      response.addCookie(targetCookie);
-    }
+    session.invalidate();
 
     // 화면돌리기
     return "redirect:/article/list";
