@@ -1,4 +1,4 @@
-package com.example.basic.domain.admin;
+package com.example.basic.domain.admin.controller;
 
 import com.example.basic.global.ReqResHandler;
 import jakarta.servlet.http.Cookie;

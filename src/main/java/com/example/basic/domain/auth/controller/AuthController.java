@@ -1,5 +1,6 @@
-package com.example.basic.domain.controller;
+package com.example.basic.domain.auth.controller;
 
+import com.example.basic.domain.auth.entity.Member;
 import com.example.basic.global.ReqResHandler;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,11 +14,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
-public class loginController {
+public class AuthController {
 
   private final ReqResHandler reqResHandler;
+  private List<Member> meberList;
 
   @GetMapping("/logout")
   public String logout(HttpServletRequest request, HttpServletResponse response) { // 매개변수 - request, response
@@ -49,20 +54,41 @@ public class loginController {
 
   @PostMapping("/login")
   public String login(@Valid LoginForm loginForm, HttpServletResponse response) {
-    String dbUser = "hong";
-    String dbpass = "1234";
-    String dbRole = "admin"; // normal, admin
 
+    List<Member> memberList = new ArrayList<>();
 
-    //로그인 실패
-    if (!dbUser.equals(loginForm.username) || !dbpass.equals(loginForm.password)) {
+    Member member1 = Member.builder()
+        .username("hong")
+        .password("1234")
+        .role("admin")
+        .build();
+
+    Member member2 = Member.builder()
+        .username("kim")
+        .password("qwer")
+        .role("normal")
+        .build();
+
+    memberList.add(member1);
+    memberList.add(member2);
+
+    Member targetMember = null;
+
+    for (Member member : memberList) {
+      if (member.getUsername().equals(loginForm.username) || member.getPassword().equals(loginForm.password)) {
+        targetMember = member;
+        break;
+      }
+    }
+
+    if (targetMember == null) {
       return "login-fail";
     }
 
     // loginUser 쿠폰을 발행. 쿠폰 값은 username
     // 로그인 성공
     Cookie cookie = new Cookie("loginUser", loginForm.username);
-    Cookie role = new Cookie("role", dbRole);
+    Cookie role = new Cookie("role", targetMember.getRole());
 
     // 쿠키의 유효 시간 설정 (초 단위, 1시간 유효) => 로그인 만료 시간
     cookie.setMaxAge(60 * 60);
