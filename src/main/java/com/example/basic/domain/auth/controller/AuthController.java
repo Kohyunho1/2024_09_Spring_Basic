@@ -5,6 +5,7 @@ import com.example.basic.global.ReqResHandler;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -53,7 +54,7 @@ public class AuthController {
   }
 
   @PostMapping("/login")
-  public String login(@Valid LoginForm loginForm, HttpServletResponse response) {
+  public String login(@Valid LoginForm loginForm, HttpServletResponse response, HttpSession session) {
 
     List<Member> memberList = new ArrayList<>();
 
@@ -85,20 +86,13 @@ public class AuthController {
       return "login-fail";
     }
 
-    // loginUser 쿠폰을 발행. 쿠폰 값은 username
-    // 로그인 성공
-    Cookie cookie = new Cookie("loginUser", loginForm.username);
-    Cookie role = new Cookie("role", targetMember.getRole());
+    // 장부(세션)을 마련해서 저장해야함.
+    // 장부에 사용자 아이디 적기
+    session.setAttribute("loginUser", loginForm.username);
+    // 장부에 사용자 권한 적기
+    session.setAttribute("role", targetMember.getRole());
 
-    // 쿠키의 유효 시간 설정 (초 단위, 1시간 유효) => 로그인 만료 시간
-    cookie.setMaxAge(60 * 60);
-
-    // 쿠키의 경로 설정 (도메인의 어느 경로에서 쿠키가 유효한지)
-    cookie.setPath("/");
-
-    // 응답에 쿠키 추가
-    response.addCookie(cookie);
-    response.addCookie(role);
+    // 회원을 구별하기 위한 회원번호는 쿠키로 발급되는데 => 장부를 사용하면 장부 제공자인 스프링부트가 알아서 해줌
 
     return "redirect:/article/list";
   }
