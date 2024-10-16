@@ -24,4 +24,16 @@ public class MyFilterConfig {
 
     return registrationBean;
   }
+
+  @Bean
+  public FilterRegistrationBean<LoginFilter> loginFilterFilterRegistrationBean() {
+    FilterRegistrationBean<LoginFilter> registrationBean = new FilterRegistrationBean<>(); // 필터 등록을 해주는 객체
+    registrationBean.setFilter(new LoginFilter());
+    registrationBean.addUrlPatterns("/article/write");
+    registrationBean.addUrlPatterns("/article/detail/*");
+    registrationBean.addUrlPatterns("/article/update/*");
+    registrationBean.addUrlPatterns("/article/delete/*");
+
+    return registrationBean;
+  }
 }

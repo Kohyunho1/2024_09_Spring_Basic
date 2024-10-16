@@ -3,7 +3,6 @@ package com.example.basic.domain.article.controller;
 import com.example.basic.domain.article.entity.Article;
 import com.example.basic.domain.article.service.ArticleService;
 import com.example.basic.global.ReqResHandler;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -30,15 +29,6 @@ public class ArticleController {
   @RequestMapping("/article/detail/{id}")
   public String detail(@PathVariable("id") long id, Model model, HttpServletRequest request) {
 
-    Cookie targetCookie = reqResHandler.getCookieByName(request, "loginUser");
-
-    if (targetCookie != null) {
-      model.addAttribute("loginUser", targetCookie.getValue());
-
-      Cookie role = reqResHandler.getCookieByName(request, "role");
-      model.addAttribute("role", role.getValue());
-    }
-
     Article article = articleService.getById(id); // 데이터 처리(비지니스 로직)
     model.addAttribute("article", article); // 웹 관련 처리
 
@@ -52,11 +42,6 @@ public class ArticleController {
     // 장부 체크
     // 하위타입 => 상위타입은 변환 자동 형변환, 상위타입 = > 하위타입 수동 형변환
     // Object 자바 최상위 타입
-    String username = (String)session.getAttribute("loginUser");
-
-    if (username != null) {
-      model.addAttribute("loginUser", username);
-    }
 
     model.addAttribute("articleList", articleList);
 
@@ -64,17 +49,14 @@ public class ArticleController {
   }
 
   @GetMapping("/article/write")
-  public String articleWrite(Model model, HttpServletRequest request) {
+  public String articleWrite(Model model, HttpServletRequest request, HttpSession session) {
 
-    Cookie targetCookie = reqResHandler.getCookieByName(request, "loginUser");
+    String username = (String) session.getAttribute("loginUser");
 
-    // 단골이냐 아니냐(쿠폰여부)
-    if (targetCookie != null) {
-      model.addAttribute("loginUser", targetCookie.getValue());
-
-      Cookie role = reqResHandler.getCookieByName(request, "role");
-      model.addAttribute("role", role.getValue());
+    if (username == null) {
+      throw new RuntimeException("로그인이 필요한 기능입니다.");
     }
+
     return "article/write";
   }
 
@@ -95,7 +77,7 @@ public class ArticleController {
   }
 
   @RequestMapping("/article/delete/{id}")
-  public String delete(@PathVariable long id) {
+  public String delete(@PathVariable long id, HttpSession session) {
 
     articleService.deleteById(id);
     return "redirect:/article/list";
@@ -111,7 +93,7 @@ public class ArticleController {
   }
 
   @RequestMapping("/article/modify/{id}")
-  public String modify(@PathVariable("id") long id, @Valid ModifyForm modifyForm) {
+  public String modify(@PathVariable("id") long id, @Valid ModifyForm modifyForm, HttpSession session) {
 
     articleService.update(id, modifyForm.getTitle(), modifyForm.getBody());
     return "redirect:/article/detail/%d".formatted(id); // 브라우저 출력 => html 문자열로 출력

@@ -1,6 +1,9 @@
 package com.example.basic;
 
+import com.example.basic.domain.auth.dao.MemberDao;
+import com.example.basic.domain.auth.entity.Member;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
@@ -8,6 +11,20 @@ import java.util.List;
 
 @SpringBootTest
 class SpringBasicApplicationTests {
+
+	@Autowired
+	private MemberDao memberDao;
+
+	@Test
+	void t2() {
+		Member member2 = Member.builder()
+				.username("kim")
+				.password("qwer")
+				.role("normal")
+				.build();
+
+		memberDao.save(member2);
+	}
 
 	@Test
 	void t1() {
