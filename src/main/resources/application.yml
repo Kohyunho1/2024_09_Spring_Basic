@@ -1,6 +1,11 @@
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+
   application:
     name: demo
+
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/2024_09_Spring_Boot?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
