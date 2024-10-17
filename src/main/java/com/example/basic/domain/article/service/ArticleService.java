@@ -2,6 +2,7 @@ package com.example.basic.domain.article.service;
 
 import com.example.basic.domain.article.entity.Article;
 import com.example.basic.domain.article.dao.ArticleDao;
+import com.example.basic.domain.article.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class ArticleService {
 
   private final ArticleDao articleDao;
+  private ArticleRepository articleRepository;
 
   // 1. 기능 구현
   // 2. 유지 보수를 생각한 코드
