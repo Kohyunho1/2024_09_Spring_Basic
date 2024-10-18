@@ -18,6 +18,8 @@ class SpringBasicApplicationTests {
 
   @Autowired
   private MemberRepository memberRepository;
+
+  @Autowired
   private ArticleRepository articleRepository;
 
   @Test
@@ -27,13 +29,14 @@ class SpringBasicApplicationTests {
     System.out.println(article.getId());
     System.out.println(article.getTitle());
     System.out.println(article.getBody());
-    System.out.println(article.getMemberId());
 
     long memberId = article.getMemberId();
     Member member = memberRepository.findById(memberId).get();
 
     System.out.println(member.getUsername());
     System.out.println(member.getRole());
+
+
   }
 
   @Test
@@ -57,6 +60,7 @@ class SpringBasicApplicationTests {
 
   }
 
+
   @Test
   @DisplayName("회원 수정 - save")
   void t7() {
@@ -68,10 +72,11 @@ class SpringBasicApplicationTests {
 
     System.out.println(member.getUsername() + " : " + member.getRole());
 
-    member.setRole("admin"); // 엔티티의 값을 바꾸고
-    memberRepository.save(member); // 엔티티 다시 저장
+    member.setRole("admin"); // 엔터티의 값을 바꾸고
+    memberRepository.save(member); // 엔터티 다시 저장
 
   }
+
 
   @Test
   @DisplayName("회원 삭제 - delete, deleteById")
@@ -85,8 +90,8 @@ class SpringBasicApplicationTests {
 
     // entity로 삭제
     memberRepository.delete(member);
-
   }
+
 
   @Test
   @DisplayName("회원 단건 조회 - findById")
@@ -99,8 +104,9 @@ class SpringBasicApplicationTests {
       System.out.println(member.getUsername());
       System.out.println(member.getPassword());
       System.out.println(member.getRole());
-
     }
+
+
   }
 
   @Test
@@ -143,6 +149,7 @@ class SpringBasicApplicationTests {
 //		memberDao.save(member2);
 //	}
 
+
   @Test
   void t1() {
 
@@ -160,7 +167,7 @@ class SpringBasicApplicationTests {
     }
 
     for (String str : strList) {
-
+      System.out.println(str);
     }
 
   }
