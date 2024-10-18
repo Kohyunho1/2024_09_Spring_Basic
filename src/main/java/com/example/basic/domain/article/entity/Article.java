@@ -1,7 +1,6 @@
 package com.example.basic.domain.article.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Setter
@@ -13,7 +12,10 @@ import lombok.*;
 public class Article {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(columnDefinition = "INT UNSIGNED")
   private Long id;
   private String title;
   private String body;
+  private Long memberId; // 회원 번호
 }

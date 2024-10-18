@@ -1,7 +1,5 @@
 package com.example.basic;
 
-import com.example.basic.domain.article.dao.ArticleDao;
-import com.example.basic.domain.article.entity.Article;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TestController {
 
-  private final ArticleDao articleDao;
 
   @GetMapping("/find-cookie")
   @ResponseBody
@@ -79,12 +76,12 @@ public class TestController {
     fruits.add("orange");
     fruits.add("apple");
 
-    Article article = articleDao.findById(1L);
+//    Article article = articleDao.findById(1L);
 
     model.addAttribute("myNumber", myNumber);
     model.addAttribute("myString", myString);
     model.addAttribute("fruits", fruits);
-    model.addAttribute("article", article);
+//    model.addAttribute("article", article);
 
     return "test/param";
   }
