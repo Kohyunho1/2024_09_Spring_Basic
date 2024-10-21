@@ -21,4 +21,16 @@ public class Member {
   private String password;
   private String role;
 
+  public String switchKoreanRole() {
+
+    switch (this.role) {
+      case "admin" :
+        return "관리자";
+      case "normal" :
+        return  "일반회원";
+    }
+
+    throw new RuntimeException("없는 권한 정보입니다.");
+  }
+
 }

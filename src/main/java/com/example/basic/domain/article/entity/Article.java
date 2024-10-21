@@ -1,5 +1,6 @@
 package com.example.basic.domain.article.entity;
 
+import com.example.basic.domain.auth.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,5 +18,9 @@ public class Article {
   private Long id;
   private String title;
   private String body;
-  private Long memberId; // 회원 번호
+//  private Long memberId; // 회원 번호
+
+  @ManyToOne
+  @JoinColumn(name = "author_id")
+  private Member author;
 }

@@ -23,26 +23,16 @@ class SpringBasicApplicationTests {
   private ArticleRepository articleRepository;
 
   @Test
-  @DisplayName("게시물 정보와 게시물 작성자 정보 같이 가져오기")
-  void t9() {
+  @DisplayName("JPA 연관관계를 이용한 데이터 조회")
+  void t11() {
     Article article = articleRepository.findById(1L).get();
-    System.out.println(article.getId());
     System.out.println(article.getTitle());
-    System.out.println(article.getBody());
-
-    long memberId = article.getMemberId();
-    Member member = memberRepository.findById(memberId).get();
-
-    System.out.println(member.getUsername());
-    System.out.println(member.getRole());
-
-
+    System.out.println(article.getAuthor().getUsername());
   }
 
   @Test
-  @DisplayName("Article에 외래키로 memberId를 넣어서 저장")
-  void t8() {
-
+  @DisplayName("JPA 연관관계를 이용한 데이터 저장")
+  void t10() {
     Member m1 = Member.builder()
         .username("hong")
         .password("1234")
@@ -52,11 +42,48 @@ class SpringBasicApplicationTests {
     Article a1 = Article.builder()
         .title("테스트 제목1")
         .body("테스트 내용1")
-        .memberId(1L)
+        .author(m1)
         .build();
 
     memberRepository.save(m1);
     articleRepository.save(a1);
+  }
+
+  @Test
+  @DisplayName("게시물 정보와 게시물 작성자 정보 같이 가져오기")
+  void t9() {
+    Article article = articleRepository.findById(1L).get();
+    System.out.println(article.getId());
+    System.out.println(article.getTitle());
+    System.out.println(article.getBody());
+
+//    long memberId = article.getMemberId();
+//    Member member = memberRepository.findById(memberId).get();
+//
+//    System.out.println(member.getUsername());
+//    System.out.println(member.getRole());
+
+
+  }
+
+  @Test
+  @DisplayName("Article에 외래키로 memberId를 넣어서 저장")
+  void t8() {
+
+//    Member m1 = Member.builder()
+//        .username("hong")
+//        .password("1234")
+//        .role("admin")
+//        .build();
+//
+//    Article a1 = Article.builder()
+//        .title("테스트 제목1")
+//        .body("테스트 내용1")
+//        .member(m1)
+//        .build();
+//
+//    memberRepository.save(m1);
+//    articleRepository.save(a1);
 
   }
 

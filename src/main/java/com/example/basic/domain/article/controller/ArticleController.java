@@ -2,6 +2,8 @@ package com.example.basic.domain.article.controller;
 
 import com.example.basic.domain.article.entity.Article;
 import com.example.basic.domain.article.service.ArticleService;
+import com.example.basic.domain.comment.entity.Comment;
+import com.example.basic.domain.comment.service.CommentService;
 import com.example.basic.global.ReqResHandler;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -24,13 +26,16 @@ import java.util.List;
 public class ArticleController {
 
   private final ArticleService articleService;
+  private final CommentService commentService;
   private final ReqResHandler reqResHandler;
 
   @RequestMapping("/article/detail/{id}")
   public String detail(@PathVariable("id") long id, Model model, HttpServletRequest request) {
 
     Article article = articleService.getById(id); // 데이터 처리(비지니스 로직)
+    List<Comment> commentList = commentService.getAll();
     model.addAttribute("article", article); // 웹 관련 처리
+    model.addAttribute("commentList", commentList);
 
     return "article/detail";
   }

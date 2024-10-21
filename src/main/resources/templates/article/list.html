@@ -2,7 +2,7 @@
 <div layout:fragment="content">
     <ul>
         <li th:each="article : ${articleList}">
-            <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.id} + ', ' + ${article.title}"></a>
+            <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.id} + ', ' + ${article.title} + ', ' + ${article.author.username} + '(' + ${article.author.switchKoreanRole()} + ')'"></a>
         </li>
     </ul>
 </div>
