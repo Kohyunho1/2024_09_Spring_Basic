@@ -19,5 +19,4 @@ public class Comment {
   private long id;
   private String body;
 
-
 }

@@ -28,7 +28,7 @@
     <hr>
     <form action="/comment/write" method="post">
         <input type="text" name="body" placeholder="댓글 내용을 입력해주세요.">
-        <input type="text" name="articleId" th:value="${article.id}">
+        <input type="hidden" name="articleId" th:value="${article.id}">
         <input type="submit" value="댓글 등록">
     </form>
     <script>

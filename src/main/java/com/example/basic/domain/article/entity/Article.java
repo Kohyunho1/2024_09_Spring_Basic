@@ -1,8 +1,12 @@
 package com.example.basic.domain.article.entity;
 
 import com.example.basic.domain.auth.entity.Member;
+import com.example.basic.domain.comment.entity.Comment;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -14,7 +18,6 @@ public class Article {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(columnDefinition = "INT UNSIGNED")
   private Long id;
   private String title;
   private String body;
@@ -23,4 +26,9 @@ public class Article {
   @ManyToOne
   @JoinColumn(name = "author_id")
   private Member author;
+
+  @OneToMany
+  @JoinColumn(name = "article_id")
+  List<Comment> commentList = new ArrayList<>();
+
 }
