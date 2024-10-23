@@ -15,6 +15,7 @@ public class TestFilter implements Filter {
   @Override
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
     System.out.println("저는 필터입니다. 모든 요청은 저를 지나갑니다.");
+
     filterChain.doFilter(servletRequest, servletResponse); // 필터 통과
   }
 

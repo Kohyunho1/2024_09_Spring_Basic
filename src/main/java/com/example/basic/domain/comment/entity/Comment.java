@@ -1,9 +1,8 @@
 package com.example.basic.domain.comment.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.basic.domain.article.entity.Article;
+import com.example.basic.domain.auth.entity.Member;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -18,5 +17,12 @@ public class Comment {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private String body;
+
+  @ManyToOne
+  private Article article;
+
+  @ManyToOne
+  @JoinColumn(name = "author_id")
+  private Member author;
 
 }

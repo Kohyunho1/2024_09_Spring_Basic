@@ -13,24 +13,32 @@
             <!--    <div th:text="${article.body}"></div>-->
         </div>
         <hr>
-        <ul>
-            <label for="comment">댓글</label>
-            <li th:each="comment : ${commentList}">
-                <a th:text="${comment.id} + ', ' + ${comment.body}"></a>
-            </li>
-        </ul>
-        <hr>
-        <input type="submit" value="수정"/>
+        <input class="btn btn-xs" type="submit" value="수정"/>
     </form>
     <form th:action="@{|/article/delete/${article.id}|}" method="post">
-        <input type="submit" value="삭제"/>
+        <input class="btn btn-xs" type="submit" value="삭제"/>
     </form>
     <hr>
     <form action="/comment/write" method="post">
         <input type="text" name="body" placeholder="댓글 내용을 입력해주세요.">
         <input type="hidden" name="articleId" th:value="${article.id}">
-        <input type="submit" value="댓글 등록">
+        <input class="btn btn-xs" type="submit" value="댓글 등록">
     </form>
+    <hr>
+    <ul>
+        <li class="flex" th:each="comment : ${article.commentList}">
+            <form th:action="@{|/comment/modify/${comment.id}|}" method="post">
+                <input type="text" name="body" th:value="${comment.body}">
+                <input type="text" disabled th:value="${comment.author.username}">
+                <input type="hidden" name="articleId" th:value="${article.id}">
+                <input class="btn btn-xs" type="submit" value="수정">
+            </form>
+            <form th:action="@{|/comment/delete/${comment.id}|}" method="post">
+                <input type="hidden" name="articleId" th:value="${article.id}">
+                <input class="btn btn-xs" type="submit" value="삭제">
+            </form>
+        </li>
+    </ul>
     <script>
         function checkSubmit(form) {
             console.log('test');

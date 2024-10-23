@@ -42,7 +42,7 @@
     </div>
     <div class="navbar-end">
         <div th:if="${session.loginUser}">
-            <span th:text="${session.loginUser.username}"></span>님! 반갑습니다
+            <a href="/auth/user"><span th:text="${session.loginUser.username}"></span></a>님! 반갑습니다
         </div>
         <button class="btn btn-ghost btn-circle">
             <svg

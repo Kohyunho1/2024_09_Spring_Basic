@@ -38,6 +38,7 @@ public class MyFilterConfig {
     registrationBean.addUrlPatterns("/article/detail/*");
     registrationBean.addUrlPatterns("/article/update/*");
     registrationBean.addUrlPatterns("/article/delete/*");
+    registrationBean.addUrlPatterns("/comment/write/*");
 
     return registrationBean;
   }
