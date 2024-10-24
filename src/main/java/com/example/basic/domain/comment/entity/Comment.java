@@ -1,7 +1,7 @@
 package com.example.basic.domain.comment.entity;
 
 import com.example.basic.domain.article.entity.Article;
-import com.example.basic.domain.auth.entity.Member;
+import com.example.basic.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 

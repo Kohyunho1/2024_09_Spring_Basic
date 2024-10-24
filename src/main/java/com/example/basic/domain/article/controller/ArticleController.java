@@ -2,7 +2,7 @@ package com.example.basic.domain.article.controller;
 
 import com.example.basic.domain.article.entity.Article;
 import com.example.basic.domain.article.service.ArticleService;
-import com.example.basic.domain.auth.entity.Member;
+import com.example.basic.domain.member.entity.Member;
 import com.example.basic.global.reqres.ReqResHandler;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

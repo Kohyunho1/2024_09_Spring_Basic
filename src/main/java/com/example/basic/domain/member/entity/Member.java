@@ -1,4 +1,4 @@
-package com.example.basic.domain.auth.entity;
+package com.example.basic.domain.member.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,6 +20,7 @@ public class Member {
   private String username; // 로그인 아이디 -> 중복 허용 X
   private String password;
   private String role;
+
 
   public String switchKoreanRole() {
 

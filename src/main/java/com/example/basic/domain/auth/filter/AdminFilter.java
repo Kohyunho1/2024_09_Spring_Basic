@@ -1,6 +1,6 @@
 package com.example.basic.domain.auth.filter;
 
-import com.example.basic.domain.auth.entity.Member;
+import com.example.basic.domain.member.entity.Member;
 import com.example.basic.global.reqres.ReqResHandler;
 import jakarta.servlet.*;
 

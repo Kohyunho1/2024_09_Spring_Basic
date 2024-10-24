@@ -34,11 +34,14 @@ public class MyFilterConfig {
   public FilterRegistrationBean<LoginFilter> loginFilterFilterRegistrationBean() {
     FilterRegistrationBean<LoginFilter> registrationBean = new FilterRegistrationBean<>(); // 필터 등록을 해주는 객체
     registrationBean.setFilter(new LoginFilter(reqResHandler));
-    registrationBean.addUrlPatterns("/article/write");
-    registrationBean.addUrlPatterns("/article/detail/*");
-    registrationBean.addUrlPatterns("/article/update/*");
-    registrationBean.addUrlPatterns("/article/delete/*");
-    registrationBean.addUrlPatterns("/comment/write/*");
+//    registrationBean.addUrlPatterns("/article/write");
+//    registrationBean.addUrlPatterns("/article/detail/*");
+//    registrationBean.addUrlPatterns("/article/update/*");
+//    registrationBean.addUrlPatterns("/article/delete/*");
+//    registrationBean.addUrlPatterns("/comment/write");
+//    registrationBean.addUrlPatterns("/comment/delete/*");
+//    registrationBean.addUrlPatterns("/comment/modify/*");
+    registrationBean.addUrlPatterns("/*");
 
     return registrationBean;
   }

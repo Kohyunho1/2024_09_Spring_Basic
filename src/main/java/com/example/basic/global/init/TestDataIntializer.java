@@ -2,8 +2,8 @@ package com.example.basic.global.init;
 
 import com.example.basic.domain.article.entity.Article;
 import com.example.basic.domain.article.repository.ArticleRepository;
-import com.example.basic.domain.auth.entity.Member;
-import com.example.basic.domain.auth.repository.MemberRepository;
+import com.example.basic.domain.member.entity.Member;
+import com.example.basic.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

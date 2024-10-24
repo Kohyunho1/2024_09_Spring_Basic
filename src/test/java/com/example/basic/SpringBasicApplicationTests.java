@@ -2,8 +2,8 @@ package com.example.basic;
 
 import com.example.basic.domain.article.entity.Article;
 import com.example.basic.domain.article.repository.ArticleRepository;
-import com.example.basic.domain.auth.entity.Member;
-import com.example.basic.domain.auth.repository.MemberRepository;
+import com.example.basic.domain.member.entity.Member;
+import com.example.basic.domain.member.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

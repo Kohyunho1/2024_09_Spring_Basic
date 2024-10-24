@@ -1,6 +1,6 @@
 package com.example.basic.global.reqres;
 
-import com.example.basic.domain.auth.entity.Member;
+import com.example.basic.domain.member.entity.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -2,7 +2,7 @@ package com.example.basic.domain.article.service;
 
 import com.example.basic.domain.article.entity.Article;
 import com.example.basic.domain.article.repository.ArticleRepository;
-import com.example.basic.domain.auth.entity.Member;
+import com.example.basic.domain.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -54,5 +54,9 @@ public class ArticleService {
     article.setBody(body);
 
     articleRepository.save(article);
+  }
+
+  public List<Article> getArticlesByAuthor(Member author) {
+    return articleRepository.findByAuthor(author);
   }
 }
